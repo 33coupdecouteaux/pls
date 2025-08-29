@@ -77,7 +77,12 @@ export default async function NosBiensPage() {
 
         {projectItems.length > 0 ? (
           <section className='pt-6'>
-            {/* Cover with centered headline overlay */}
+            {/* Titre principal au-dessus de la cover */}
+            <h1 className='text-heading font-black font-libertinus leading-tight text-3xl md:text-5xl xl:text-6xl tracking-tight text-center text-neutral-900 mb-8 md:mb-12'>
+              Découvrez nos biens d'exception
+            </h1>
+            
+            {/* Cover sans le titre overlay */}
             <div className='relative mb-10 rounded-2xl overflow-hidden shadow-sm'>
               <ProjectItem
                 project={projectItems[0]}
@@ -88,11 +93,6 @@ export default async function NosBiensPage() {
                 overrideImageSrc={'/plage.png'}
                 overrideImageAlt={'Plage Les Issambres French Riviera'}
               />
-              <div className='absolute inset-0 flex items-center justify-center px-4'>
-                <h1 className='text-heading font-black font-libertinus leading-tight text-3xl md:text-5xl xl:text-6xl tracking-tight text-center text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]'>
-                  Découvrez nos biens d\'exception
-                </h1>
-              </div>
             </div>
             <div className='flex items-center justify-center mb-8 md:mb-10'>
               <div className='h-px w-48 md:w-72 bg-neutral-300 rounded-full' />
