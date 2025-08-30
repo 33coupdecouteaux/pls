@@ -13,9 +13,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Checkbox } from '@/components/ui/checkbox';
 import { PlusIcon, EditIcon, TrashIcon, HomeIcon, SaveIcon, XIcon } from 'lucide-react';
-import { LISTING_FEATURES } from '@/lib/listingFeatures';
+import { LISTING_FEATURES, type ListingFeature } from '@/lib/listingFeatures';
 import Link from 'next/link';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger, DialogClose } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@/components/ui/dialog';
 
 type Listings = inferRouterOutputs<AppRouter>['listing']['list'];
 type Listing = Listings[number];
@@ -82,7 +82,7 @@ export default function ListingsPage() {
     updateMutation.mutate({ 
       id: editId, 
       ...editData,
-      features: editData.features as any
+      features: editData.features as ListingFeature[]
     });
   };
 

@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import { ProjectItem } from '@/components/landing/project-item';
+import type { ProjectItemFragment } from '@/lib/basehub';
 
 interface Listing {
   id: string;
@@ -21,7 +22,7 @@ interface Listing {
 
 interface ListingsBrowserProps {
   listings: Listing[];
-  projectItems: any[]; // mapped server fragments
+  projectItems: ProjectItemFragment[]; // mapped server fragments
 }
 
 export function ListingsBrowser({ listings, projectItems }: ListingsBrowserProps) {

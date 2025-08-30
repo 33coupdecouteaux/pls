@@ -8,9 +8,9 @@ import {
   IconMessage, 
   IconUsers,
   IconHome,
-  IconCalendar,
-  IconCurrencyEuro
+  IconCalendar
 } from "@tabler/icons-react"
+import type { AnalyticsProperty, ActivityItem } from "@/lib/types"
 import {
   Card,
   CardContent,
@@ -37,9 +37,9 @@ const Analytics = () => {
     averagePrice: 0,
   }
 
-  const recentActivity: any[] = []
+  const recentActivity: ActivityItem[] = []
 
-  const topProperties: any[] = []
+  const topProperties: AnalyticsProperty[] = []
 
   const monthlyData = [
     { month: "Jan", views: 0, inquiries: 0 },
@@ -156,7 +156,7 @@ const Analytics = () => {
           </CardHeader>
           <CardContent>
             <div className="h-[300px] flex items-end justify-between gap-2 p-4 border rounded-lg bg-muted/20">
-              {monthlyData.map((data, index) => (
+              {monthlyData.map((data) => (
                 <div key={data.month} className="flex flex-col items-center gap-2 flex-1">
                   <div className="flex gap-1">
                     <div 

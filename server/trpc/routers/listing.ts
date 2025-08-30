@@ -67,7 +67,7 @@ export const listingRouter = router({
     }),
   create: protectedProcedure
     .input(listingInput)
-    .mutation(async ({ ctx, input }: { ctx: Context & { session: any }; input: z.infer<typeof listingInput> }) => {
+    .mutation(async ({ ctx, input }: { ctx: Context & { session: any }; input: z.infer<typeof listingInput> }) => { // TODO: Type session properly when auth is fully implemented
       const id = randomUUID();
       const now = new Date();
       const data = { 
@@ -79,13 +79,13 @@ export const listingRouter = router({
         features: input.features ?? [],
         imageUrls: input.imageUrls ?? [],
         ...input
-      } as any;
+      };
       await ctx.db.insert(listing).values(data);
       return data;
     }),
   update: protectedProcedure
     .input(listingInput.partial().extend({ id: z.string() }))
-    .mutation(async ({ ctx, input }: { ctx: Context & { session: any }; input: { id: string } & Partial<z.infer<typeof listingInput>> }) => {
+    .mutation(async ({ ctx, input }: { ctx: Context & { session: any }; input: { id: string } & Partial<z.infer<typeof listingInput>> }) => { // TODO: Type session properly when auth is fully implemented
       const { id, ...rest } = input;
       // Enforce ownership in update
       const rows = await ctx.db.update(listing)
@@ -100,7 +100,7 @@ export const listingRouter = router({
     }),
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
-  .mutation(async ({ ctx, input }: { ctx: Context & { session: any }; input: { id: string } }) => {
+  .mutation(async ({ ctx, input }: { ctx: Context & { session: any }; input: { id: string } }) => { // TODO: Type session properly when auth is fully implemented
       // Could fetch owner first; simple optimistic delete then check
       const rows = await ctx.db.select().from(listing).where(eq(listing.id, input.id));
       const row = rows[0];

@@ -1,17 +1,15 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
-  IconCamera,
   IconChartBar,
   IconDashboard,
-  IconDatabase,
+  IconEdit,
   IconFileAi,
   IconFileDescription,
-  IconEdit,
   IconHome,
-  IconInnerShadowTop,
   IconListDetails,
   IconSearch,
   IconSettings,
@@ -107,10 +105,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="/">
+              <Link href="/">
                 <IconHome className="!size-5" />
                 <span className="text-base font-semibold">WelkomHOME</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
