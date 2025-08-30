@@ -2,22 +2,37 @@ import { appRouter } from '@/server/trpc/appRouter';
 import { createContext } from '@/server/trpc/context';
 import { ProjectItem } from '@/components/landing/project-item';
 import { ListingsBrowser } from '@/components/listings-browser';
-import Image from 'next/image';
+import type { ProjectItemFragment } from '@/lib/basehub';
 
 export const dynamic = 'force-dynamic';
 
 // Adapter pour transformer un listing en ProjectItemFragment minimal
-function listingToProjectItem(listing: any) {
+function listingToProjectItem(listing: {
+  id: string;
+  title: string;
+  description: string | null;
+  location: string | null;
+  features: string[] | null;
+  coverImageUrl: string | null;
+  imageUrls: string[] | null;
+}): ProjectItemFragment {
   return {
     _title: listing.title,
     _slug: listing.id,
     description: { json: [], text: listing.description || '' },
     year: null,
+    location: listing.location,
     client: { json: [], text: '' },
     category: listing.features || [],
     opengraphImage: listing.coverImageUrl
       ? { url: listing.coverImageUrl, width: 1200, height: 630 }
       : null,
+    mainImage: listing.coverImageUrl
+      ? { url: listing.coverImageUrl, alt: listing.title }
+      : null,
+    gallery: (listing.imageUrls && listing.imageUrls.length > 0
+      ? listing.imageUrls.map((url: string) => ({ url, alt: listing.title }))
+      : null),
     media: {
       items: (listing.imageUrls && listing.imageUrls.length > 0
         ? listing.imageUrls
@@ -34,12 +49,12 @@ function listingToProjectItem(listing: any) {
             },
           })),
     },
-  } as any;
+  } as unknown as ProjectItemFragment;
 }
 
 export default async function NosBiensPage() {
   const ctx = await createContext();
-  const caller = appRouter.createCaller(ctx as any);
+  const caller = appRouter.createCaller(ctx);
   const listings = await caller.listing.list();
 
   // déjà filtré published au niveau du router, fallback si besoin
@@ -97,7 +112,7 @@ export default async function NosBiensPage() {
             <div className='flex items-center justify-center mb-8 md:mb-10'>
               <div className='h-px w-48 md:w-72 bg-neutral-300 rounded-full' />
             </div>
-            <ListingsBrowser listings={published as any} projectItems={projectItems as any} />
+            <ListingsBrowser listings={published} projectItems={projectItems} />
           </section>
         ) : (
           <div className='py-24 text-center text-neutral-500'>Aucun bien publié pour le moment.</div>

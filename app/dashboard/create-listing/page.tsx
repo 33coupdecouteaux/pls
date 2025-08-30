@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { trpc } from '@/lib/trpcClient';
-import { LISTING_FEATURES } from '@/lib/listingFeatures';
+import { LISTING_FEATURES, type ListingFeature } from '@/lib/listingFeatures';
 import { ListingImageUploader } from '@/components/upload/listing-image-uploader';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -74,7 +74,7 @@ export default function CreateListingPage() {
       cityQuarter: form.cityQuarter || undefined,
       fullAddress: form.fullAddress || undefined,
       status: form.status,
-      features: form.features as any,
+      features: form.features as ListingFeature[],
       imageUrls: form.imageUrls,
   coverImageUrl: form.coverImageUrl,
   bedrooms: form.bedrooms,
@@ -94,7 +94,7 @@ export default function CreateListingPage() {
       cityQuarter: draftData.cityQuarter || undefined,
       fullAddress: draftData.fullAddress || undefined,
       status: draftData.status,
-      features: draftData.features as any,
+      features: draftData.features as ListingFeature[],
       imageUrls: draftData.imageUrls,
   coverImageUrl: draftData.coverImageUrl,
   bedrooms: draftData.bedrooms,
